@@ -1,8 +1,8 @@
-import { Box, Button, Typography, useTheme } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { Box, Button, useTheme } from "@mui/material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
-import { mockDataTeam } from "../../data/mockData";
+import { mockDataContacts } from "../../data/mockData";
 import { tokens } from "../../theme";
 
 const Team = () => {
@@ -39,85 +39,62 @@ const Team = () => {
       flex: 1,
     },
     {
-      field: "accessLevel",
-      headerName: "Access Level",
+      field: "Actions",
+      headerName: "Actions",
       flex: 1,
-      renderCell: ({ row: { access } }) => {
-        return (
-          <Box
-            width="60%"
-            m="0 auto"
-            p="5px"
-            display="flex"
-            justifyContent="center"
-            backgroundColor={
-              access === "admin"
-                ? colors.greenAccent[600]
-                : access === "manager"
-                ? colors.greenAccent[700]
-                : colors.greenAccent[700]
-            }
-            borderRadius="4px"
-          >
-            {access === "admin"}
-            {access === "manager"}
-            {access === "user"}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
-            </Typography>
-          </Box>
-        );
-      },
     },
   ];
 
   return (
     <Box m="20px">
-      <Header title="User Management" subtitle="Managing the users" />
-
-      <Link to={"createuser"}>
-        {" "}
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "#6870fa",
-            color: "white",
-            marginRight: 3,
-            fontSize: "16px",
-            "&:hover": {
-              backgroundColor: "#3e4396", // Change to green color on hover
-            },
-          }}
-        >
-          Add New User
-        </Button>
-      </Link>
-      <Link to={"addneworg"}>
-        {" "}
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "#6870fa",
-            color: "white",
-            marginRight: 2,
-            fontSize: "16px",
-            "&:hover": {
-              backgroundColor: "#3e4396", // Change to green color on hover
-            },
-          }}
-        >
-          Add New Organization
-        </Button>
-      </Link>
-
-      {/* DataGrid */}
       <Box
-        m="40px 0 0 0"
-        height="51vh"
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        marginBottom="20px"
+      >
+        <Header title="User Management" subtitle="Managing the users" />
+        <Box>
+          <Link to={"createuser"} style={{ marginRight: "10px" }}>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#6870fa",
+                color: "white",
+                fontSize: "16px",
+                "&:hover": {
+                  backgroundColor: "#3e4396",
+                },
+              }}
+            >
+              Add New User
+            </Button>
+          </Link>
+          <Link to={"addneworg"}>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#6870fa",
+                color: "white",
+                fontSize: "16px",
+                "&:hover": {
+                  backgroundColor: "#3e4396",
+                },
+              }}
+            >
+              Add New Organization
+            </Button>
+          </Link>
+        </Box>
+      </Box>
+
+      <Box
+        m="10px 0 0 0"
+        height="70vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
-            fontSize: "1rem", // Adjust the font size here
+            fontSize: "16px",
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
@@ -139,9 +116,16 @@ const Team = () => {
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        <DataGrid
+          rows={mockDataContacts}
+          columns={columns}
+          components={{ Toolbar: GridToolbar }}
+        />
       </Box>
     </Box>
   );

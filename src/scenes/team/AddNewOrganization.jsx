@@ -38,9 +38,9 @@ const AddNewOrganization = () => {
   };
 
   return (
-    <Box m="20px" height="80vh" overflow="auto">
+    <Box m="20px" height="80vh" overflow="auto" paddingRight="20px">
       <Header
-        title="CREATE ORGANIZATION"
+        title="Add a New Organization"
         subtitle="Create a New Organization Profile"
       />
 

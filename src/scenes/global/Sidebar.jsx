@@ -89,29 +89,38 @@ const Sidebar = () => {
             )}
           </MenuItem>
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
-              title="Dashboard"
-              to="/"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+          <Box pl={!isCollapsed ? "20px" : undefined} alignItems="left">
+            <Typography>
+              <Item
+                title="Dashboard"
+                to="/"
+                icon={<HomeOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </Typography>
 
             <Item
               title="User Management"
-              to="/team"
+              to="/user"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="Contacts Information"
-              to="/contacts"
-              icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 0" }}
+            >
+              <Item
+                title="Subscription Packages"
+                to="/subscription"
+                icon={<ContactsOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </Typography>
+
             <Item
               title="Invoices Balances"
               to="/invoices"
@@ -123,7 +132,7 @@ const Sidebar = () => {
             <Typography
               variant="h6"
               color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 0" }}
             >
               Pages
             </Typography>
@@ -152,7 +161,7 @@ const Sidebar = () => {
             <Typography
               variant="h6"
               color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 0" }}
             >
               Charts
             </Typography>

@@ -51,13 +51,13 @@ const Topbar = () => {
       <Box>
         <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
-            <DarkModeOutlinedIcon style={{ fontSize: "2.2rem" }} />
+            <DarkModeOutlinedIcon style={{ fontSize: "1.8rem" }} />
           ) : (
-            <LightModeOutlinedIcon style={{ fontSize: "2.2rem" }} />
+            <LightModeOutlinedIcon style={{ fontSize: "1.8rem" }} />
           )}
         </IconButton>
         <IconButton>
-          <NotificationsOutlinedIcon style={{ fontSize: "2.2rem" }} />
+          <NotificationsOutlinedIcon style={{ fontSize: "1.8rem" }} />
         </IconButton>
 
         <IconButton
