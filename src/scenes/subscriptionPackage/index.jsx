@@ -1,13 +1,13 @@
 import { Box, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import Header from "../../components/Header";
+import { mockDataContacts } from "../../data/mockData";
 import { tokens } from "../../theme";
 
-import { mockDataContacts } from "../../data/mockData";
-
-const Invoices = () => {
+const SubscripttionPackage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "registrarId", headerName: "Registrar ID" },
@@ -53,7 +53,7 @@ const Invoices = () => {
 
   return (
     <Box m="20px">
-      <Header title="Invocies" subtitle="" />
+      <Header title="Subscirption Package Management" subtitle="" />
       <Box
         m="0 0 0 0"
         height="60vh"
@@ -97,4 +97,4 @@ const Invoices = () => {
   );
 };
 
-export default Invoices;
+export default SubscripttionPackage;

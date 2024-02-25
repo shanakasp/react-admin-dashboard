@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import { mockDataContacts } from "../../data/mockData";
 import { tokens } from "../../theme";
 
-const Contacts = () => {
+const AppointmentLogs = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -17,46 +17,29 @@ const Contacts = () => {
       flex: 1,
       cellClassName: "name-column--cell",
     },
-    {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
-    {
-      field: "phone",
-      headerName: "Phone Number",
-      flex: 1,
-    },
+
     {
       field: "email",
       headerName: "Email",
       flex: 1,
     },
     {
-      field: "address",
-      headerName: "Address",
+      field: "date submitted",
+      headerName: "Date Submitted",
       flex: 1,
     },
     {
-      field: "city",
-      headerName: "City",
-      flex: 1,
-    },
-    {
-      field: "zipCode",
-      headerName: "Zip Code",
+      headerName: "Actions",
       flex: 1,
     },
   ];
 
   return (
     <Box m="20px">
-      <Header title="Subscirption Package Management" subtitle="" />
+      <Header title="Appiontment Logs" subtitle="" />
       <Box
-        m="40px 0 0 0"
-        height="70vh"
+        m="0 0 0 0"
+        height="60vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -97,4 +80,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default AppointmentLogs;

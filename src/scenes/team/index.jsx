@@ -90,11 +90,11 @@ const Team = () => {
 
       <Box
         m="10px 0 0 0"
-        height="70vh"
+        height="55vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
-            fontSize: "16px",
+            fontSize: "14px",
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",

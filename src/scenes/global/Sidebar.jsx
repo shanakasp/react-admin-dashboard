@@ -1,15 +1,20 @@
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import EventAvailableOutlinedIcon from "@mui/icons-material/EventAvailableOutlined";
+import FeedbackOutlinedIcon from "@mui/icons-material/FeedbackOutlined";
+import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
+import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import PaymentOutlinedIcon from "@mui/icons-material/PaymentOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
+import PlaylistAddCheckOutlinedIcon from "@mui/icons-material/PlaylistAddCheckOutlined";
+import PlaylistPlayOutlinedIcon from "@mui/icons-material/PlaylistPlayOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import { Menu, MenuItem, ProSidebar } from "react-pro-sidebar";
@@ -17,9 +22,40 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, to, icon, selected, setSelected, children }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
+
+  const handleSubmenuToggle = () => {
+    setIsSubmenuOpen(!isSubmenuOpen);
+  };
+
+  return (
+    <>
+      <MenuItem
+        active={selected === title}
+        style={{
+          color: colors.grey[100],
+        }}
+        onClick={() => {
+          setSelected(title);
+          handleSubmenuToggle();
+        }}
+        icon={icon}
+      >
+        <Typography>{title}</Typography>
+        <Link to={to} />
+      </MenuItem>
+      {isSubmenuOpen && children}
+    </>
+  );
+};
+
+const Subtopic = ({ title, to, selected, setSelected }) => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
@@ -27,7 +63,6 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         color: colors.grey[100],
       }}
       onClick={() => setSelected(title)}
-      icon={icon}
     >
       <Typography>{title}</Typography>
       <Link to={to} />
@@ -70,6 +105,7 @@ const Sidebar = () => {
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
+              textAlign: "left",
             }}
           >
             {!isCollapsed && (
@@ -90,15 +126,13 @@ const Sidebar = () => {
           </MenuItem>
 
           <Box pl={!isCollapsed ? "20px" : undefined} alignItems="left">
-            <Typography>
-              <Item
-                title="Dashboard"
-                to="/"
-                icon={<HomeOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-            </Typography>
+            <Item
+              title="Dashboard"
+              to="/"
+              icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
 
             <Item
               title="User Management"
@@ -107,88 +141,143 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 0" }}
+
+            <Item
+              title="Subscription Packages"
+              to="/subscription"
+              icon={<ContactsOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Appointment Logs"
+              to="/appointment"
+              icon={<EventAvailableOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="New Requests From Users"
+              to="/invoices"
+              icon={<ListAltOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
             >
-              <Item
-                title="Subscription Packages"
-                to="/subscription"
-                icon={<ContactsOutlinedIcon />}
+              <Subtopic
+                title="Forms Submitted By User"
+                to="/invoices/topic1"
                 selected={selected}
                 setSelected={setSelected}
               />
-            </Typography>
+              <Subtopic
+                title="New Service Requests"
+                to="/invoices/topic2"
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </Item>
 
             <Item
-              title="Invoices Balances"
+              title="Careers"
+              to="/subscription"
+              icon={<BusinessCenterOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Payment Logs"
               to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
+              icon={<PaymentOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 0" }}
-            >
-              Pages
-            </Typography>
             <Item
-              title="Profile Form"
-              to="/form"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
+              title="Event Management"
+              to="/event"
+              icon={<EmojiEventsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 0" }}
-            >
-              Charts
-            </Typography>
             <Item
-              title="Bar Chart"
-              to="/bar"
-              icon={<BarChartOutlinedIcon />}
+              title="CMS Management"
+              to="/cms"
+              icon={<SettingsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+
             <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
+              title="Sermons Management"
+              to="/sermons"
+              icon={<PlaylistPlayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+
             <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
+              title="Templates"
+              to="/templates"
+              icon={<PlaylistAddCheckOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+
             <Item
-              title="Geography Chart"
-              to="/geography"
+              title="Membership Card Module"
+              to="/membership"
+              icon={<LiveTvOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Feedbacks"
+              to="/feedback"
+              icon={<FeedbackOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="JCGN Churches"
+              to="/churches"
+              icon={<GroupOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Live Stream"
+              to="/live"
+              icon={<LiveTvOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Video Management"
+              to="/videos"
+              icon={<VideoLibraryOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Admin Service Management"
+              to="/admin"
+              icon={<SettingsOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Blocks"
+              to="/blocks"
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
