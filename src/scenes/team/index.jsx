@@ -1,8 +1,6 @@
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import { mockDataTeam } from "../../data/mockData";
 import { tokens } from "../../theme";
@@ -36,6 +34,11 @@ const Team = () => {
       flex: 1,
     },
     {
+      field: "Status",
+      headerName: "Status",
+      flex: 1,
+    },
+    {
       field: "accessLevel",
       headerName: "Access Level",
       flex: 1,
@@ -56,9 +59,9 @@ const Team = () => {
             }
             borderRadius="4px"
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
+            {access === "admin"}
+            {access === "manager"}
+            {access === "user"}
             <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
               {access}
             </Typography>
@@ -72,12 +75,40 @@ const Team = () => {
     <Box m="20px">
       <Header title="User Management" subtitle="Managing the users" />
 
-      <Button variant="contained" color="primary" sx={{ mr: 2 }}>
-        Add New User
-      </Button>
-      <Button variant="contained" color="primary">
-        Add New Organization
-      </Button>
+      <Link to={"createuser"}>
+        {" "}
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "#6870fa",
+            color: "white",
+            marginRight: 3,
+            fontSize: "16px",
+            "&:hover": {
+              backgroundColor: "#3e4396", // Change to green color on hover
+            },
+          }}
+        >
+          Add New User
+        </Button>
+      </Link>
+      <Link to={"addneworg"}>
+        {" "}
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "#6870fa",
+            color: "white",
+            marginRight: 2,
+            fontSize: "16px",
+            "&:hover": {
+              backgroundColor: "#3e4396", // Change to green color on hover
+            },
+          }}
+        >
+          Add New Organization
+        </Button>
+      </Link>
 
       {/* DataGrid */}
       <Box
@@ -86,6 +117,7 @@ const Team = () => {
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
+            fontSize: "1rem", // Adjust the font size here
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
@@ -94,7 +126,7 @@ const Team = () => {
             color: colors.greenAccent[300],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.greenAccent[700],
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
@@ -102,7 +134,7 @@ const Team = () => {
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.greenAccent[700],
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,

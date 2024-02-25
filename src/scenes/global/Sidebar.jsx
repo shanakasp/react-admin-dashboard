@@ -99,7 +99,7 @@ const Sidebar = () => {
             />
 
             <Item
-              title="Manage Team"
+              title="User Management"
               to="/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
