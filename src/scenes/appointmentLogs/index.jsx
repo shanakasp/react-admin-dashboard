@@ -1,5 +1,10 @@
-import { Box, useTheme } from "@mui/material";
+import {
+  Edit as EditIcon,
+  Visibility as VisibilityIcon,
+} from "@mui/icons-material"; // Importing icons
+import { Box, IconButton, Tooltip, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import { mockDataContacts } from "../../data/mockData";
 import { tokens } from "../../theme";
@@ -7,6 +12,16 @@ import { tokens } from "../../theme";
 const AppointmentLogs = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const handleViewClick = (id) => {
+    // Handle view action
+    console.log("View clicked for id:", id);
+  };
+
+  const handleEditClick = (id) => {
+    // Handle edit action
+    console.log("Edit clicked for id:", id);
+  };
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -17,26 +32,43 @@ const AppointmentLogs = () => {
       flex: 1,
       cellClassName: "name-column--cell",
     },
-
     {
       field: "email",
       headerName: "Email",
       flex: 1,
     },
     {
-      field: "date submitted",
+      field: "dateSubmitted",
       headerName: "Date Submitted",
       flex: 1,
     },
     {
       headerName: "Actions",
       flex: 1,
+      renderCell: (params) => (
+        <Box>
+          <Tooltip title="View">
+            <Link to={`/appointment/view/${params.row.id}`}>
+              {" "}
+              {/* Construct URL dynamically */}
+              <IconButton>
+                <VisibilityIcon />
+              </IconButton>
+            </Link>
+          </Tooltip>
+          <Tooltip title="Edit">
+            <IconButton onClick={() => handleEditClick(params.row.id)}>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      ),
     },
   ];
 
   return (
     <Box m="20px">
-      <Header title="Appiontment Logs" subtitle="" />
+      <Header title="Appointment Logs" subtitle="" />
       <Box
         m="0 0 0 0"
         height="60vh"

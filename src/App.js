@@ -2,6 +2,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import AppointmentLogs from "./scenes/appointmentLogs";
+import ViewAppointment from "./scenes/appointmentLogs/ViewAppointment";
 import Dashboard from "./scenes/dashboard";
 import Sidebar from "./scenes/global/Sidebar";
 import Topbar from "./scenes/global/Topbar";
@@ -39,6 +40,10 @@ function App() {
               <Route
                 path="/user/addneworg"
                 element={<AddNewOrganization></AddNewOrganization>}
+              />
+              <Route
+                path="/appointment/view/:id"
+                element={<ViewAppointment />}
               />
             </Routes>
           </main>
