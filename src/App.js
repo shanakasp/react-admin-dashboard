@@ -9,6 +9,7 @@ import Dashboard from "./scenes/dashboard";
 import Sidebar from "./scenes/global/Sidebar";
 import Topbar from "./scenes/global/Topbar";
 import Invoices from "./scenes/invoices";
+import MyProfile from "./scenes/myProfile/MyProfile";
 import FormUserView from "./scenes/newReqst/FormUserView";
 import FormsUser from "./scenes/newReqst/FormsUser";
 import NewServiceRequest from "./scenes/newReqst/NewServiceRequest";
@@ -73,6 +74,10 @@ function App() {
               <Route
                 path="/paymentlogs"
                 element={<PaymentLogs></PaymentLogs>}
+              ></Route>
+              <Route
+                path="/userprofile"
+                element={<MyProfile></MyProfile>}
               ></Route>
             </Routes>
           </main>

@@ -8,6 +8,7 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { ColorModeContext, tokens } from "../../theme";
 
 const Topbar = () => {
@@ -91,12 +92,17 @@ const Topbar = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>
-              <IconButton>
-                <AccountCircleIcon />
-              </IconButton>
-              My Profile
-            </MenuItem>
+            <Link
+              to="/userprofile"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <MenuItem onClick={handleClose}>
+                <IconButton>
+                  <AccountCircleIcon />
+                </IconButton>
+                My Profile
+              </MenuItem>
+            </Link>
             <MenuItem onClick={handleClose}>
               <IconButton>
                 <ExitToAppIcon />
