@@ -3,10 +3,17 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import AppointmentLogs from "./scenes/appointmentLogs";
 import ViewAppointment from "./scenes/appointmentLogs/ViewAppointment";
+import Careers from "./scenes/careers";
+import CreateNewCareer from "./scenes/careers/CreateNewCareer";
 import Dashboard from "./scenes/dashboard";
 import Sidebar from "./scenes/global/Sidebar";
 import Topbar from "./scenes/global/Topbar";
 import Invoices from "./scenes/invoices";
+import FormUserView from "./scenes/newReqst/FormUserView";
+import FormsUser from "./scenes/newReqst/FormsUser";
+import NewServiceRequest from "./scenes/newReqst/NewServiceRequest";
+import NewServiceView from "./scenes/newReqst/NewServiceView";
+import PaymentLogs from "./scenes/paymentLogs";
 import SubscriptionPackage from "./scenes/subscriptionPackage";
 import Team from "./scenes/team";
 import AddNewOrganization from "./scenes/team/AddNewOrganization";
@@ -45,6 +52,28 @@ function App() {
                 path="/appointment/view/:id"
                 element={<ViewAppointment />}
               />
+              <Route
+                path="/formsuser"
+                element={<FormsUser></FormsUser>}
+              ></Route>
+              <Route path="/formsuser/view/:id" element={<FormUserView />} />
+              <Route
+                path="/newserviceuser"
+                element={<NewServiceRequest></NewServiceRequest>}
+              ></Route>
+              <Route
+                path="/newserviceuser/view/:id"
+                element={<NewServiceView />}
+              />
+              <Route path="/careers" element={<Careers></Careers>}></Route>
+              <Route
+                path="/careers/newcareer"
+                element={<CreateNewCareer></CreateNewCareer>}
+              ></Route>
+              <Route
+                path="/paymentlogs"
+                element={<PaymentLogs></PaymentLogs>}
+              ></Route>
             </Routes>
           </main>
         </div>

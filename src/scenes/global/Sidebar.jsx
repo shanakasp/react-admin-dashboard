@@ -165,15 +165,16 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             >
+              {" "}
               <Subtopic
                 title="Forms Submitted By User"
-                to="/invoices/topic1"
+                to="/formsuser"
                 selected={selected}
                 setSelected={setSelected}
               />
               <Subtopic
                 title="New Service Requests"
-                to="/invoices/topic2"
+                to="/newserviceuser"
                 selected={selected}
                 setSelected={setSelected}
               />
@@ -181,7 +182,7 @@ const Sidebar = () => {
 
             <Item
               title="Careers"
-              to="/subscription"
+              to="/careers"
               icon={<BusinessCenterOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -189,7 +190,7 @@ const Sidebar = () => {
 
             <Item
               title="Payment Logs"
-              to="/invoices"
+              to="/paymentlogs"
               icon={<PaymentOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

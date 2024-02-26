@@ -2,26 +2,22 @@ import { Box, Grid, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header";
 
-function ViewAppointment() {
+function NewServiceView() {
   const { id } = useParams();
 
   // Example user details (replace with actual data retrieval logic)
   const userDetails = {
     "Full Name": "Mark Carson",
     "Email Address": "mark@mail.com",
-    "Home Address": "House No.123",
     "Phone Number": "+1 101 202 303",
-    "Appointment Date": "September 20 2022",
-    "Appointment Time": "15:00:00",
-    "Type of Meeting": "Meeting Abc",
-    "Length of Meeting": "1 Hour",
-    "Purpose of Meeting": "Confidential",
-    "Location of Meeting": "ABC Location",
+    "Home Address": "House No.123",
+
+    "What kind of service you want to suggest": "Request Sample 123",
   };
 
   return (
     <Box m="20px" height="80vh" overflow="auto" paddingRight="20px">
-      <Header title={`View Appointment ${id}`} subtitle="" />
+      <Header title={`New Request by User ID ${id}`} subtitle="" />
       <Box ml={"40px"}>
         {" "}
         <Grid container spacing={2}>
@@ -46,4 +42,4 @@ function ViewAppointment() {
   );
 }
 
-export default ViewAppointment;
+export default NewServiceView;
