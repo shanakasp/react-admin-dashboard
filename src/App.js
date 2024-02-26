@@ -14,6 +14,9 @@ import FormsUser from "./scenes/newReqst/FormsUser";
 import NewServiceRequest from "./scenes/newReqst/NewServiceRequest";
 import NewServiceView from "./scenes/newReqst/NewServiceView";
 import PaymentLogs from "./scenes/paymentLogs";
+import Profile from "./scenes/profile";
+import ChangePw from "./scenes/profile/ChangePw";
+import EditProfile from "./scenes/profile/EditProfile";
 import SubscriptionPackage from "./scenes/subscriptionPackage";
 import Team from "./scenes/team";
 import AddNewOrganization from "./scenes/team/AddNewOrganization";
@@ -73,6 +76,15 @@ function App() {
               <Route
                 path="/paymentlogs"
                 element={<PaymentLogs></PaymentLogs>}
+              ></Route>
+              <Route path="/profile" element={<Profile></Profile>}></Route>
+              <Route
+                path="/profile/changepassword"
+                element={<ChangePw></ChangePw>}
+              ></Route>
+              <Route
+                path="/profile/editprofile"
+                element={<EditProfile></EditProfile>}
               ></Route>
             </Routes>
           </main>
