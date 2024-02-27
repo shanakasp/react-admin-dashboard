@@ -21,6 +21,7 @@ import SubscriptionPackage from "./scenes/subscriptionPackage";
 import Team from "./scenes/team";
 import AddNewOrganization from "./scenes/team/AddNewOrganization";
 import CreateNewUser from "./scenes/team/CreateNewUser";
+import ViewUser from "./scenes/team/ViewUser";
 import { ColorModeContext, useMode } from "./theme";
 function App() {
   const [theme, colorMode] = useMode();
@@ -85,6 +86,10 @@ function App() {
               <Route
                 path="/profile/editprofile"
                 element={<EditProfile></EditProfile>}
+              ></Route>
+              <Route
+                path="/user/viewuser/:id"
+                element={<ViewUser></ViewUser>}
               ></Route>
             </Routes>
           </main>

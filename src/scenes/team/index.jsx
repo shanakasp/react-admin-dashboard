@@ -1,47 +1,88 @@
-import { Box, Button, useTheme } from "@mui/material";
+import {
+  Edit as EditIcon,
+  Visibility as VisibilityIcon,
+} from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  IconButton,
+  MenuItem,
+  Select,
+  Tooltip,
+  useTheme,
+} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import { mockDataContacts } from "../../data/mockData";
 import { tokens } from "../../theme";
 
 const Team = () => {
+  const [data, setData] = useState(mockDataContacts);
+
+  const handleViewClick = (id) => {
+    console.log("View clicked for id:", id);
+  };
+
+  const handleEditClick = (id) => {
+    console.log("Edit clicked for id:", id);
+  };
+
+  const handleStatusChange = (id, newStatus) => {
+    const updatedData = data.map((item) => {
+      if (item.id === id) {
+        return { ...item, status: newStatus };
+      }
+      return item;
+    });
+    setData(updatedData);
+    console.log("Status changed for id:", id, "New status:", newStatus);
+  };
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   const columns = [
     { field: "id", headerName: "ID" },
+    { field: "name", headerName: "Name", flex: 1 },
+    { field: "phone", headerName: "Phone Number", flex: 1 },
+    { field: "email", headerName: "Email", flex: 1 },
+    { field: "role", headerName: "Role", flex: 1 }, // Changed field name to 'role'
     {
-      field: "name",
-      headerName: "Name",
-      flex: 1,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
-    {
-      field: "phone",
-      headerName: "Phone Number",
-      flex: 1,
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      flex: 1,
-    },
-    {
-      field: "Status",
+      field: "status",
       headerName: "Status",
       flex: 1,
+      renderCell: (params) => (
+        <Select
+          value={params.row.status}
+          onChange={(event) =>
+            handleStatusChange(params.row.id, event.target.value)
+          }
+        >
+          <MenuItem value="Active">Active</MenuItem>
+          <MenuItem value="Inactive">Inactive</MenuItem>
+        </Select>
+      ),
     },
     {
-      field: "Actions",
       headerName: "Actions",
-      flex: 1,
+      renderCell: (params) => (
+        <Box>
+          <Tooltip title="View">
+            <Link to={`/user/viewuser/${params.row.id}`}>
+              <IconButton onClick={() => handleViewClick(params.row.id)}>
+                <VisibilityIcon />
+              </IconButton>
+            </Link>
+          </Tooltip>
+          <Tooltip title="Edit">
+            <IconButton onClick={() => handleEditClick(params.row.id)}>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      ),
     },
   ];
 
@@ -122,7 +163,7 @@ const Team = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={data}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />

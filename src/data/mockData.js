@@ -3,20 +3,22 @@ import { tokens } from "../theme";
 export const mockDataTeam = [
   {
     id: 1,
-    name: "Jon Snow",
-    email: "jonsnow@gmail.com",
-    age: 35,
-    phone: "(665)121-5454",
-    access: "admin",
+    name: "John Doe",
+    phone: "1234567890",
+    email: "john@example.com",
+    role: "Admin",
+    status: "Active",
   },
   {
     id: 2,
-    name: "Cersei Lannister",
-    email: "cerseilannister@gmail.com",
-    age: 42,
-    phone: "(421)314-2288",
-    access: "manager",
+    name: "Jane Smith",
+    phone: "0987654321",
+    email: "jane@example.com",
+    role: "User",
+    status: "Active",
   },
+  // Add more data as needed
+
   {
     id: 3,
     name: "Jaime Lannister",
