@@ -30,6 +30,7 @@ function EditCareer() {
     Name: yup.string().required("Name is required"),
     Location: yup.string().required("Location is required"),
     Content: yup.string().required("Content is required"),
+    Status: yup.string().required("Status is required"), // Make Status required
   });
 
   const formik = useFormik({
@@ -51,6 +52,15 @@ function EditCareer() {
               <Grid item xs={1}>
                 <Typography variant="h5" component="span" fontWeight="bold">
                   {field}:
+                  {checkoutSchema.fields[field] && (
+                    <Typography
+                      component="span"
+                      color="error"
+                      style={{ marginLeft: "3px" }} // Adjust margin as needed
+                    >
+                      *
+                    </Typography>
+                  )}
                 </Typography>
               </Grid>
               <Grid item xs={11}>
@@ -84,7 +94,7 @@ function EditCareer() {
               </Grid>
             </React.Fragment>
           ))}
-          <Grid item xs={12} mt={3}>
+          <Box display="flex" justifyContent="right" mt={3}>
             <Button
               onClick={formik.handleSubmit}
               variant="contained"
@@ -99,7 +109,7 @@ function EditCareer() {
             >
               Update
             </Button>
-          </Grid>
+          </Box>
         </Grid>
       </Box>
     </Box>
