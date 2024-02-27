@@ -15,12 +15,13 @@ import { Formik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
 import Header from "../../components/Header";
+import { countries } from "../../data/countries";
 
 const CreateNewUser = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const [userDetails, setUserDetails] = useState();
   const handleFormSubmit = (values) => {
     console.log(values);
   };
@@ -36,9 +37,22 @@ const CreateNewUser = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+  const handleFieldChange = (field, value) => {
+    if (field === "Select Country") {
+      setUserDetails((prevUserDetails) => ({
+        ...prevUserDetails,
+        [field]: value.name, // Assuming value is an object with a 'name' property
+      }));
+    } else {
+      setUserDetails((prevUserDetails) => ({
+        ...prevUserDetails,
+        [field]: value,
+      }));
+    }
+  };
 
   return (
-    <Box m="20px">
+    <Box m="20px" height="70vh" overflow="auto" paddingRight="20px">
       <Header title="CREATE USER" subtitle="Create a New User Profile" />
 
       <Formik
@@ -147,6 +161,88 @@ const CreateNewUser = () => {
                   helperText={touched.occupation && errors.occupation}
                 />
               </Box>
+
+              <Box>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="date"
+                  label="Date of Birth"
+                  InputLabelProps={{ shrink: true }}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.dob}
+                  name="dob"
+                  error={!!touched.dob && !!errors.dob}
+                  helperText={touched.dob && errors.dob}
+                />
+              </Box>
+              <Box>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Phone No."
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.phone}
+                  name="phone"
+                  error={!!touched.phone && !!errors.phone}
+                  helperText={touched.phone && errors.phone}
+                />
+              </Box>
+              <Box>
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Home Address"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.address}
+                  name="address"
+                  error={!!touched.address && !!errors.address}
+                  helperText={touched.address && errors.address}
+                />{" "}
+              </Box>
+              <Box>
+                {" "}
+                <TextField
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="City or State"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.city}
+                  name="city"
+                  error={!!touched.city && !!errors.city}
+                  helperText={touched.city && errors.city}
+                />
+              </Box>
+
+              <Box>
+                <FormControl fullWidth variant="filled">
+                  <InputLabel>Country</InputLabel>
+                  <Select
+                    value={values.country}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    name="country"
+                    error={!!touched.country && !!errors.country}
+                    helperText={touched.country && errors.country}
+                  >
+                    {countries.map((countryObj) => (
+                      <MenuItem
+                        key={countryObj.country}
+                        value={countryObj.country}
+                      >
+                        {countryObj.country}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
               <Box>
                 <TextField
                   fullWidth
@@ -205,67 +301,6 @@ const CreateNewUser = () => {
                   }}
                 />
               </Box>
-              <Box>
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="date"
-                  label="Date of Birth"
-                  InputLabelProps={{ shrink: true }}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.dob}
-                  name="dob"
-                  error={!!touched.dob && !!errors.dob}
-                  helperText={touched.dob && errors.dob}
-                />
-              </Box>
-              <Box>
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="Phone No."
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.phone}
-                  name="phone"
-                  error={!!touched.phone && !!errors.phone}
-                  helperText={touched.phone && errors.phone}
-                />
-              </Box>
-              <Box>
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="text"
-                  label="Home Address"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.address}
-                  name="address"
-                  error={!!touched.address && !!errors.address}
-                  helperText={touched.address && errors.address}
-                />
-              </Box>
-              <Box>
-                <FormControl fullWidth variant="filled">
-                  <InputLabel>Select Country</InputLabel>
-                  <Select
-                    value={values.country}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    name="country"
-                    error={!!touched.country && !!errors.country}
-                  >
-                    <MenuItem value="USA">USA</MenuItem>
-                    <MenuItem value="Canada">Canada</MenuItem>
-                    <MenuItem value="UK">UK</MenuItem>
-                    {/* Add more countries as needed */}
-                  </Select>
-                </FormControl>
-              </Box>
-              <Box>{/* Add rest of the fields */}</Box>
             </Box>
             {/* Submit Button */}
             <Box display="flex" justifyContent="end" mt="20px">
@@ -309,6 +344,7 @@ const checkoutSchema = yup.object().shape({
     .required("Phone No. is required"),
   address: yup.string().required("Home Address is required"),
   country: yup.string().required("Country is required"),
+  city: yup.string().required("City and State is required"),
   password: yup.string().required("Password is required"),
   confirmPassword: yup
     .string()
@@ -329,6 +365,7 @@ const initialValues = {
   country: "",
   password: "",
   confirmPassword: "",
+  city: "",
 };
 
 export default CreateNewUser;

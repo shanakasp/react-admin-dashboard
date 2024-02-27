@@ -1,7 +1,5 @@
-import {
-  Edit as EditIcon,
-  Visibility as VisibilityIcon,
-} from "@mui/icons-material";
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Box,
   Button,
@@ -19,14 +17,20 @@ import { mockDataContacts } from "../../data/mockData";
 import { tokens } from "../../theme";
 
 const Team = () => {
-  const [data, setData] = useState(mockDataContacts);
+  const [data, setData] = useState(
+    mockDataContacts.map((item) => ({
+      ...item,
+      role: Math.random() < 0.5 ? "User" : "Organization", // randomly assign User or Organization
+      status: Math.random() < 0.5 ? "Active" : "Inactive", // randomly assign Active or Inactive
+    }))
+  );
 
-  const handleViewClick = (id) => {
-    console.log("View clicked for id:", id);
+  const handleViewClick = (id, role) => {
+    console.log(`View clicked for ${role} with id:`, id);
   };
 
-  const handleEditClick = (id) => {
-    console.log("Edit clicked for id:", id);
+  const handleEditClick = (id, role) => {
+    console.log(`Edit clicked for ${role} with id:`, id);
   };
 
   const handleStatusChange = (id, newStatus) => {
@@ -48,7 +52,7 @@ const Team = () => {
     { field: "name", headerName: "Name", flex: 1 },
     { field: "phone", headerName: "Phone Number", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
-    { field: "role", headerName: "Role", flex: 1 }, // Changed field name to 'role'
+    { field: "role", headerName: "Role", flex: 1 },
     {
       field: "status",
       headerName: "Status",
@@ -70,16 +74,34 @@ const Team = () => {
       renderCell: (params) => (
         <Box>
           <Tooltip title="View">
-            <Link to={`/user/viewuser/${params.row.id}`}>
-              <IconButton onClick={() => handleViewClick(params.row.id)}>
+            <Link
+              to={
+                params.row.role === "User"
+                  ? `/user/viewuser/${params.row.id}`
+                  : `/user/vieworg/${params.row.id}`
+              }
+            >
+              <IconButton
+                onClick={() => handleViewClick(params.row.id, params.row.role)}
+              >
                 <VisibilityIcon />
               </IconButton>
             </Link>
           </Tooltip>
           <Tooltip title="Edit">
-            <IconButton onClick={() => handleEditClick(params.row.id)}>
-              <EditIcon />
-            </IconButton>
+            <Link
+              to={
+                params.row.role === "User"
+                  ? `/user/edituser/${params.row.id}`
+                  : `/user/editorg/${params.row.id}`
+              }
+            >
+              <IconButton
+                onClick={() => handleEditClick(params.row.id, params.row.role)}
+              >
+                <EditIcon />
+              </IconButton>
+            </Link>
           </Tooltip>
         </Box>
       ),

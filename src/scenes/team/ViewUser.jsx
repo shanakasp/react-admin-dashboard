@@ -1,47 +1,63 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header";
 
 function ViewUser() {
   const { id } = useParams();
 
-  // Example user details (replace with actual data retrieval logic)
+  // Updated user details
   const userDetails = {
-    "Full Name": "Mark Carson",
-    "Email Address": "mark@mail.com",
-    "Home Address": "House No.123",
-    "Phone Number": "+1 101 202 303",
-    "Appointment Date": "September 20 2022",
-    "Appointment Time": "15:00:00",
-    "Type of Meeting": "Meeting Abc",
-    "Length of Meeting": "1 Hour",
-    "Purpose of Meeting": "Confidential",
-    "Location of Meeting": "ABC Location",
+    "Full Name": "John Doe",
+    "Email Address": "johndoe@example.com",
+    Age: "35",
+    Gender: "Male",
+    Occupation: "Software Engineer",
+    "Date of Birth": "January 15, 1989",
+    "Phone No.": "+1 123 456 7890",
+    "City/State": "Anytown",
+    Country: "USA",
+    "Home Address": "123 Main Street",
   };
 
   return (
-    <Box m="20px" height="80vh" overflow="auto" paddingRight="20px">
-      <Header title={`View Usert ${id}`} subtitle="" />
-      <Box ml={"40px"}>
-        {" "}
-        <Grid container spacing={2}>
+    <Box p="20px">
+      <Header title={`View User ${id}`} subtitle="Status Active or Not" />
+      <Grid container spacing={3}>
+        {/* First column for user image */}
+        <Grid item xs={8} md={2} ml={10} mr={10} textAlign="center">
+          <Avatar
+            alt="User"
+            src={"/public/assets"}
+            sx={{ width: 150, height: 150 }}
+          />
+        </Grid>
+        {/* Second column for field labels and user details */}
+        <Grid item xs={12} md={8}>
           {Object.entries(userDetails).map(([field, value]) => (
-            <Grid item xs={12} key={field}>
-              <Typography
-                variant="h5"
-                component="span"
-                fontWeight="bold"
-                mt={3}
-              >
-                {field}:
-              </Typography>{" "}
-              <Typography variant="h6" component="span" mt={3} mr={-5}>
-                {value}
-              </Typography>
+            <Grid container spacing={1} key={field}>
+              <Grid item xs={12} sm={4}>
+                <Typography
+                  variant="subtitle1"
+                  component="div"
+                  fontWeight="bold"
+                  sx={{ fontSize: "1.2rem" }} // Increase font size
+                >
+                  {field}:
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={8}>
+                <Typography
+                  variant="body1"
+                  component="div"
+                  sx={{ fontSize: "1.3rem" }}
+                >
+                  {value}
+                </Typography>
+              </Grid>
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Grid>
     </Box>
   );
 }

@@ -1,67 +1,71 @@
-import {
-  Edit as EditIcon,
-  Visibility as VisibilityIcon,
-} from "@mui/icons-material"; // Importing icons
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Box, Button, IconButton, Tooltip, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import { mockDataContacts } from "../../data/mockData";
 import { tokens } from "../../theme";
 
 const Careers = () => {
-  const handleViewClick = (id) => {
-    // Handle view action
-    console.log("View clicked for id:", id);
+  const [data, setData] = useState(
+    mockDataContacts.map((item) => ({
+      ...item,
+      role: Math.random() < 0.5 ? "User" : "Organization", // randomly assign User or Organization
+      status: Math.random() < 0.5 ? "Active" : "Inactive", // randomly assign Active or Inactive
+    }))
+  );
+
+  const handleViewClick = (id, role) => {
+    console.log(`View clicked for ${role} with id:`, id);
   };
 
-  const handleEditClick = (id) => {
-    // Handle edit action
-    console.log("Edit clicked for id:", id);
+  const handleEditClick = (id, role) => {
+    console.log(`Edit clicked for ${role} with id:`, id);
+  };
+
+  const handleStatusChange = (id, newStatus) => {
+    const updatedData = data.map((item) => {
+      if (item.id === id) {
+        return { ...item, status: newStatus };
+      }
+      return item;
+    });
+    setData(updatedData);
+    console.log("Status changed for id:", id, "New status:", newStatus);
   };
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   const columns = [
-    { field: "id", headerName: "ID" },
-    {
-      field: "name",
-      headerName: "Title",
-      flex: 1,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "age",
-      headerName: "Location",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      flex: 1,
-    },
-    {
-      field: "phone",
-      headerName: "Date Time",
-      flex: 1,
-    },
+    { field: "id", headerName: "S. NO" },
+    { field: "name", headerName: "Title", flex: 1 },
+    { field: "phone", headerName: "Date Time", flex: 1 },
+    { field: "email", headerName: "Location", flex: 1 },
 
     {
       headerName: "Actions",
-
       renderCell: (params) => (
         <Box>
           <Tooltip title="View">
-            <Link to={`/appointment/view/${params.row.id}`}>
-              {" "}
-              {/* Construct URL dynamically */}
-              <IconButton>
+            <Link to={`/careers/viewcareer/${params.row.id}`}>
+              <IconButton
+                onClick={() => handleViewClick(params.row.id, params.row.role)}
+              >
                 <VisibilityIcon />
               </IconButton>
             </Link>
           </Tooltip>
           <Tooltip title="Edit">
-            <IconButton onClick={() => handleEditClick(params.row.id)}>
-              <EditIcon />
-            </IconButton>
+            <Link to={`/careers/editcareer/${params.row.id}`}>
+              <IconButton
+                onClick={() => handleEditClick(params.row.id, params.row.role)}
+              >
+                <EditIcon />
+              </IconButton>
+            </Link>
           </Tooltip>
         </Box>
       ),
@@ -76,7 +80,7 @@ const Careers = () => {
         alignItems="center"
         marginBottom="20px"
       >
-        <Header title="Careers Management" subtitle="Managing the careers" />
+        <Header title="User Management" subtitle="Managing the users" />
         <Box>
           <Link to={"/careers/newcareer"} style={{ marginRight: "10px" }}>
             <Button
@@ -130,7 +134,7 @@ const Careers = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={data}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />

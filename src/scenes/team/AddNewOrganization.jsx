@@ -15,6 +15,7 @@ import { Formik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
 import Header from "../../components/Header";
+import { countries } from "../../data/countries";
 
 const AddNewOrganization = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -292,18 +293,23 @@ const AddNewOrganization = () => {
               {/* Add Select Country */}
               <Box>
                 <FormControl fullWidth variant="filled">
-                  <InputLabel>Select Country</InputLabel>
+                  <InputLabel>Country</InputLabel>
                   <Select
                     value={values.country}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     name="country"
                     error={!!touched.country && !!errors.country}
+                    helperText={touched.country && errors.country}
                   >
-                    <MenuItem value="USA">USA</MenuItem>
-                    <MenuItem value="Canada">Canada</MenuItem>
-                    <MenuItem value="UK">UK</MenuItem>
-                    {/* Add more countries as needed */}
+                    {countries.map((countryObj) => (
+                      <MenuItem
+                        key={countryObj.country}
+                        value={countryObj.country}
+                      >
+                        {countryObj.country}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>

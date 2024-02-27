@@ -5,6 +5,8 @@ import AppointmentLogs from "./scenes/appointmentLogs";
 import ViewAppointment from "./scenes/appointmentLogs/ViewAppointment";
 import Careers from "./scenes/careers";
 import CreateNewCareer from "./scenes/careers/CreateNewCareer";
+import EditCareer from "./scenes/careers/EditCareer";
+import ViewCareer from "./scenes/careers/ViewCareer";
 import Dashboard from "./scenes/dashboard";
 import Sidebar from "./scenes/global/Sidebar";
 import Topbar from "./scenes/global/Topbar";
@@ -21,6 +23,9 @@ import SubscriptionPackage from "./scenes/subscriptionPackage";
 import Team from "./scenes/team";
 import AddNewOrganization from "./scenes/team/AddNewOrganization";
 import CreateNewUser from "./scenes/team/CreateNewUser";
+import EditOrganization from "./scenes/team/EditOrganization";
+import EditUser from "./scenes/team/EditUser";
+import ViewOrganization from "./scenes/team/ViewOrganization";
 import ViewUser from "./scenes/team/ViewUser";
 import { ColorModeContext, useMode } from "./theme";
 function App() {
@@ -74,6 +79,8 @@ function App() {
                 path="/careers/newcareer"
                 element={<CreateNewCareer></CreateNewCareer>}
               ></Route>
+              <Route path="/careers/viewcareer/:id" element={<ViewCareer />} />
+              <Route path="/careers/editcareer/:id" element={<EditCareer />} />
               <Route
                 path="/paymentlogs"
                 element={<PaymentLogs></PaymentLogs>}
@@ -90,6 +97,18 @@ function App() {
               <Route
                 path="/user/viewuser/:id"
                 element={<ViewUser></ViewUser>}
+              ></Route>
+              <Route
+                path="/user/vieworg/:id"
+                element={<ViewOrganization></ViewOrganization>}
+              ></Route>
+              <Route
+                path="/user/edituser/:id"
+                element={<EditUser></EditUser>}
+              ></Route>
+              <Route
+                path="/user/editorg/:id"
+                element={<EditOrganization></EditOrganization>}
               ></Route>
             </Routes>
           </main>
