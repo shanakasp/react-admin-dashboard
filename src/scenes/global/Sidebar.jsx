@@ -160,7 +160,7 @@ const Sidebar = () => {
 
             <Item
               title="New Requests From Users"
-              to="/invoices"
+              to=""
               icon={<ListAltOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

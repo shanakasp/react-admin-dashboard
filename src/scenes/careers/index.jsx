@@ -80,7 +80,7 @@ const Careers = () => {
         alignItems="center"
         marginBottom="20px"
       >
-        <Header title="User Management" subtitle="Managing the users" />
+        <Header title="Careers Management" subtitle="Managing the careers" />
         <Box>
           <Link to={"/careers/newcareer"} style={{ marginRight: "10px" }}>
             <Button
