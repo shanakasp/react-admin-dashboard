@@ -77,7 +77,7 @@ function EditSubcscription() {
                 ) : (
                   <TextField
                     {...formik.getFieldProps(field)}
-                    style={{ marginTop: "-10px" }}
+                    style={{ marginTop: "-10px", width: "60%" }} // Adjust width to 60%
                     fullWidth
                     variant="outlined"
                     margin="normal"
