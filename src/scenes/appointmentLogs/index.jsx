@@ -1,7 +1,4 @@
-import {
-  Edit as EditIcon,
-  Visibility as VisibilityIcon,
-} from "@mui/icons-material"; // Importing icons
+import { Visibility as VisibilityIcon } from "@mui/icons-material"; // Importing icons
 import { Box, IconButton, Tooltip, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
@@ -44,7 +41,7 @@ const AppointmentLogs = () => {
     },
     {
       headerName: "Actions",
-      flex: 1,
+
       renderCell: (params) => (
         <Box>
           <Tooltip title="View">
@@ -55,11 +52,6 @@ const AppointmentLogs = () => {
                 <VisibilityIcon />
               </IconButton>
             </Link>
-          </Tooltip>
-          <Tooltip title="Edit">
-            <IconButton onClick={() => handleEditClick(params.row.id)}>
-              <EditIcon />
-            </IconButton>
           </Tooltip>
         </Box>
       ),

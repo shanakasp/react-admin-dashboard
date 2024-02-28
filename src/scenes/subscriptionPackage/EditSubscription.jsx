@@ -18,17 +18,17 @@ function EditSubcscription() {
 
   // Example user details (replace with actual data retrieval logic)
   const [userDetails, setUserDetails] = useState({
-    Package_Name: "Membership Card for age 12-17",
+    "Package Name": "Membership Card for age 12-17",
     Amount: "$115",
-    For_Age: "12-17 Years Old",
+    "For Age": "12-17 Years Old",
     Status: "Active", // Added Status field
   });
 
   // Define Yup validation schema
   const checkoutSchema = yup.object().shape({
-    Package_Name: yup.string().required("Package Name is required"),
+    "Package Name": yup.string().required("Package Name is required"),
     Amount: yup.string().required("Amount is required"),
-    For_Age: yup.string().required("Age is required"),
+    "For Age": yup.string().required("Age is required"),
     Status: yup.string().required("Status is required"), // Make Status required
   });
 

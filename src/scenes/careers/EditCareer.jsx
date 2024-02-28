@@ -94,23 +94,23 @@ function EditCareer() {
               </Grid>
             </React.Fragment>
           ))}
-          <Box display="flex" justifyContent="right" mt={3}>
-            <Button
-              onClick={formik.handleSubmit}
-              variant="contained"
-              sx={{
-                backgroundColor: "#6870fa",
-                color: "white",
-                fontSize: "16px",
-                "&:hover": {
-                  backgroundColor: "#3e4396",
-                },
-              }}
-            >
-              Update
-            </Button>
-          </Box>
         </Grid>
+        <Box display="flex" justifyContent="right" mt={3}>
+          <Button
+            onClick={formik.handleSubmit}
+            variant="contained"
+            sx={{
+              backgroundColor: "#6870fa",
+              color: "white",
+              fontSize: "16px",
+              "&:hover": {
+                backgroundColor: "#3e4396",
+              },
+            }}
+          >
+            Update
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

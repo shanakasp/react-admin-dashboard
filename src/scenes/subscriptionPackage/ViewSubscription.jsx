@@ -8,12 +8,12 @@ function ViewSubscription() {
 
   // Example user details (replace with actual data retrieval logic)
   const userDetails = {
-    Package_Name: "Membership Card Age 12-17",
+    "Package Name": "Membership Card Age 12-17",
     Amount: "$115",
     Features: "Sample Feature 123 , Sample Feature 1 , Sample Feature 231",
-    For_Age: "12-17 Years Old",
+    "For Age": "12-17 Years Old",
     Status: "Active",
-    Subscription_Note: "",
+    "Subscription Note": "",
   };
 
   return (

@@ -1,11 +1,11 @@
 import { Box, Grid, Typography } from "@mui/material";
+import React from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header";
 
 function ViewAppointment() {
   const { id } = useParams();
 
-  // Example user details (replace with actual data retrieval logic)
   const userDetails = {
     "Full Name": "Mark Carson",
     "Email Address": "mark@mail.com",
@@ -22,23 +22,26 @@ function ViewAppointment() {
   return (
     <Box m="20px" height="80vh" overflow="auto" paddingRight="20px">
       <Header title={`View Appointment ${id}`} subtitle="" />
-      <Box ml={"40px"}>
-        {" "}
+      <Box ml="40px">
         <Grid container spacing={2}>
           {Object.entries(userDetails).map(([field, value]) => (
-            <Grid item xs={12} key={field}>
-              <Typography
-                variant="h5"
-                component="span"
-                fontWeight="bold"
-                mt={3}
-              >
-                {field}:
-              </Typography>{" "}
-              <Typography variant="h6" component="span" mt={3} mr={-5}>
-                {value}
-              </Typography>
-            </Grid>
+            <React.Fragment key={field}>
+              <Grid item xs={2}>
+                <Typography
+                  variant="h5"
+                  component="span"
+                  fontWeight="bold"
+                  mt={3}
+                >
+                  {field}:
+                </Typography>
+              </Grid>
+              <Grid item xs={10}>
+                <Typography variant="h6" component="span" mt={3} mr={-5}>
+                  {value}
+                </Typography>
+              </Grid>
+            </React.Fragment>
           ))}
         </Grid>
       </Box>

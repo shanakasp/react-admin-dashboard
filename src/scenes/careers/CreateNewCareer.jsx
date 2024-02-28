@@ -33,9 +33,9 @@ const CreateNewUser = () => {
   };
 
   return (
-    <Box m="20px" display="flex" justifyContent="center">
+    <Box m="20px" height="70vh" overflow="auto" paddingRight="20px">
       <Box width="50%">
-        <Header title="Add New Career" subtitle="" />
+        <Header title="Add a New Career" subtitle="" />
 
         <Formik
           onSubmit={handleFormSubmit}
