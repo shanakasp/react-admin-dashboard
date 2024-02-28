@@ -1,153 +1,139 @@
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import EditIcon from "@mui/icons-material/Edit";
+import { CameraAlt } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
   Button,
+  Grid,
   IconButton,
   TextField,
   Typography,
-  useTheme,
 } from "@mui/material";
-import { useState } from "react";
+import { useFormik } from "formik";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import * as yup from "yup";
 import Header from "../../components/Header";
-import { tokens } from "../../theme";
 
-const EditProfile = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  const [name, setName] = useState("Charlest Smith");
-  const [email, setEmail] = useState("charlestsmith888@gmail.com");
-  const [nameError, setNameError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null); // Added selectedImage state
+function EditProfile() {
+  const { id } = useParams();
 
-  const handleUpdateName = () => {
-    if (!name.trim()) {
-      setNameError(true);
-    } else {
-      setNameError(false);
-      // Perform update action here
-    }
-  };
+  // Example user details (replace with actual data retrieval logic)
+  const [userDetails, setUserDetails] = useState({
+    Name: "Charlest Smith",
+    "Email Address": "charlestsmith888@gmail.com",
+  });
 
-  const handleUpdateEmail = () => {
-    if (!email.trim()) {
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-      // Perform update action here
-    }
-  };
+  // Define Yup validation schema
+  const checkoutSchema = yup.object().shape({
+    Name: yup.string().required("Name is required"),
+    "Email Address": yup.string().required("Email is required"),
+  });
 
-  const handleUpdateProfileImage = (event) => {
-    const file = event.target.files[0]; // Get the selected file
-    setSelectedImage(file);
-    // You can perform additional actions such as uploading the image to a server here
-  };
-
-  const handleClick = () => {
-    document.getElementById("fileInput").click(); // Trigger file input click event
-  };
+  const formik = useFormik({
+    initialValues: userDetails,
+    validationSchema: checkoutSchema,
+    onSubmit: (values) => {
+      // Logic to update user details
+      console.log("Updated user details:", values);
+    },
+  });
 
   return (
-    <Box m="20px">
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        marginBottom="20px"
-      >
-        <Header title="Edit Profile" subtitle="" />
-      </Box>
-      <Box display="flex" alignItems="center">
-        <Avatar
-          alt="User Avatar"
-          src="/assets/user.png"
-          sx={{
-            width: 200,
-            height: 200,
-            marginRight: "20px",
-            marginLeft: "50px",
-          }}
-        />
-        <Box>
-          <Box display="flex" alignItems="center" sx={{ marginBottom: "10px" }}>
-            <Typography variant="h5" gutterBottom sx={{ fontSize: "1.5rem" }}>
-              Name
-            </Typography>
-            <TextField
-              variant="outlined"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              size="small"
-              error={nameError}
-              helperText={nameError ? "Name cannot be empty" : ""}
-              sx={{ marginRight: "10px", width: "200px", fontSize: "1rem" }}
-            />
-            <IconButton color="primary" size="large" onClick={handleUpdateName}>
-              <EditIcon />
-            </IconButton>
-          </Box>
-          <Box display="flex" alignItems="center" sx={{ marginBottom: "10px" }}>
-            <Typography variant="h5" gutterBottom sx={{ fontSize: "1.5rem" }}>
-              Email Address
-            </Typography>
-            <TextField
-              variant="outlined"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              size="small"
-              error={emailError}
-              helperText={emailError ? "Email cannot be empty" : ""}
-              sx={{ marginRight: "10px", width: "300px", fontSize: "1rem" }}
-            />
-            <IconButton
-              color="primary"
-              size="large"
-              onClick={handleUpdateEmail}
-            >
-              <EditIcon />
-            </IconButton>
-          </Box>
+    <Box m="20px" height="70vh" overflow="auto" paddingRight="20px">
+      <Header title={`Edit Profile`} subtitle="" />
+      <Box ml={"40px"}>
+        <Grid container spacing={2}>
+          <Grid item xs={10.2}>
+            <Box display="flex" alignItems="center">
+              {/* Image Display */}
+              <Box mb={3.5}>
+                <Box display="flex" borderRadius="3px">
+                  <img
+                    alt="profile-user"
+                    width="150px"
+                    height="150px"
+                    src={`../../assets/user.png`}
+                    style={{ cursor: "pointer", borderRadius: "50%" }}
+                  />
+                </Box>
+              </Box>
+              {/* Camera Icon */}
+              <input
+                accept="image/*"
+                style={{ display: "none" }}
+                id="profile-image-upload"
+                multiple
+                type="file"
+              />
+              <label htmlFor="profile-image-upload">
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                  style={{ color: "#6870fa" }} // Change color to blue
+                >
+                  <CameraAlt />
+                </IconButton>
+              </label>
+            </Box>
+          </Grid>
+          {Object.entries(userDetails).map(([field, value]) => (
+            <React.Fragment key={field}>
+              {field !== "ProfileImage" && (
+                <>
+                  <Grid item xs={2}>
+                    <Typography variant="h5" component="span" fontWeight="bold">
+                      {field}:
+                      {checkoutSchema.fields[field] && (
+                        <Typography
+                          component="span"
+                          color="error"
+                          style={{ marginLeft: "3px" }} // Adjust margin as needed
+                        >
+                          *
+                        </Typography>
+                      )}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={10}>
+                    <TextField
+                      {...formik.getFieldProps(field)}
+                      style={{ marginTop: "-10px", width: "70%" }} // Adjust width to 70%
+                      variant="outlined"
+                      margin="normal"
+                      multiline={field === "Content"} // Multiline for Content field
+                      rows={field === "Content" ? 4 : 1} // Adjust rows for Content field
+                    />
+                    {formik.touched[field] && formik.errors[field] && (
+                      <Typography variant="body2" color="error">
+                        {formik.errors[field]}
+                      </Typography>
+                    )}
+                  </Grid>
+                </>
+              )}
+            </React.Fragment>
+          ))}{" "}
+        </Grid>
+        {/* Update Button */}
+        <Box display="flex" justifyContent="right" mt={3}>
+          <Button
+            onClick={formik.handleSubmit}
+            variant="contained"
+            sx={{
+              backgroundColor: "#6870fa",
+              color: "white",
+              fontSize: "16px",
+              "&:hover": {
+                backgroundColor: "#3e4396",
+              },
+            }}
+          >
+            Update
+          </Button>
         </Box>
-      </Box>
-      <input
-        id="fileInput"
-        type="file"
-        accept="image/*"
-        onChange={handleUpdateProfileImage}
-        style={{ display: "none" }} // Hide the file input element
-      />
-      <Button
-        color="primary"
-        variant="text"
-        startIcon={<CameraAltIcon />}
-        sx={{ marginTop: 1, fontSize: "1rem" }}
-        onClick={handleClick} // Call handleClick when the button is clicked
-      >
-        Update Profile Image
-      </Button>
-      {selectedImage && (
-        <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
-      )}
-      <Box mt={2} display="flex" justifyContent="center">
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "#6870fa",
-            color: "white",
-            fontSize: "1rem",
-            "&:hover": {
-              backgroundColor: "#3e4396",
-            },
-          }}
-        >
-          Update
-        </Button>
       </Box>
     </Box>
   );
-};
+}
 
 export default EditProfile;
