@@ -10,7 +10,7 @@ const PaymentLogs = () => {
   const colors = tokens(theme.palette.mode);
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
+    { field: "registrarId", headerName: "User ID" },
     {
       field: "name",
       headerName: "Name",
@@ -23,22 +23,15 @@ const PaymentLogs = () => {
       type: "date",
       headerAlign: "left",
       align: "left",
-    },
-    {
-      field: "phone",
-      headerName: "Phone Number",
       flex: 1,
     },
+
     {
       field: "email",
       headerName: "Email",
       flex: 1,
     },
-    {
-      field: "address",
-      headerName: "Address",
-      flex: 1,
-    },
+
     {
       field: "city",
       headerName: "Payment Type",
@@ -47,7 +40,7 @@ const PaymentLogs = () => {
     {
       field: "zipCode",
       headerName: "Amount",
-      flex: 1,
+      flex: 0.5,
     },
   ];
 
