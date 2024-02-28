@@ -20,6 +20,8 @@ import Profile from "./scenes/profile";
 import ChangePw from "./scenes/profile/ChangePw";
 import EditProfile from "./scenes/profile/EditProfile";
 import SubscriptionPackage from "./scenes/subscriptionPackage";
+import EditSubscription from "./scenes/subscriptionPackage/EditSubscription";
+import ViewSubscription from "./scenes/subscriptionPackage/ViewSubscription";
 import Team from "./scenes/team";
 import AddNewOrganization from "./scenes/team/AddNewOrganization";
 import CreateNewUser from "./scenes/team/CreateNewUser";
@@ -47,6 +49,18 @@ function App() {
                 path="/subscription"
                 element={<SubscriptionPackage></SubscriptionPackage>}
               />
+              <Route
+                path="/subscription/viewsubcription/:id"
+                element={<ViewSubscription></ViewSubscription>}
+              />
+              <Route
+                path="/subscription/editsubcription/:id"
+                element={<EditSubscription></EditSubscription>}
+              />
+              <Route
+                path="/subscription"
+                element={<SubscriptionPackage></SubscriptionPackage>}
+              />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/appointment" element={<AppointmentLogs />} />
               <Route
@@ -59,6 +73,10 @@ function App() {
               />
               <Route
                 path="/appointment/view/:id"
+                element={<ViewAppointment />}
+              />
+              <Route
+                path="/appointment/edit/:id"
                 element={<ViewAppointment />}
               />
               <Route

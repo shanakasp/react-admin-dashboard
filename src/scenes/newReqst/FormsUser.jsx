@@ -46,7 +46,7 @@ const FormsUser = () => {
     },
     {
       headerName: "Actions",
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => (
         <Box>
           <Tooltip title="View">
